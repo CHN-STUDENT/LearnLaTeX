@@ -1,0 +1,137 @@
+%-*- coding: UTF-8 -*-
+% guanxian.tex
+% 指令流水线
+
+\documentclass[UTF8,18pt]{ctexart}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{diagbox}
+\geometry{a4paper,centering,scale=0.8}
+
+\usepackage[format=hang,font=small,textfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\newenvironment{myquote}
+{\begin{quote}\kaishu\zihao{-5}}
+	{\end{quote}}
+\title{\heiti 简述计算机流水线作用}
+\author{\kaishu 郭XX}
+\affil{\small{xxxxxxxxx，物联网 xxxx，xx大学}}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\maketitle
+% 摘要部分
+\begin{abstract}
+	这是一篇关于计算机流水线的小短文。
+\end{abstract}
+{\small 关键词：\underline{流水线}，\underline{计算机科学}，\underline{计算机组成原理}}
+
+% 目录部分
+\tableofcontents
+\section{什么是流水线}
+根据维基百科流水线定义\footnote{\url{https://en.wikipedia.org/wiki/Instruction_pipelining}}，计算机流水线可以将指令级使用多个硬件处理单元\emph{并行}\footnote{\url{https://en.wikipedia.org/wiki/Instruction-level_parallelism}}执行来加快指令执行速度。因为可以与工厂流水线类比，以此得名。它可以加快CPU的吞吐量，但是自身的额外开销可能会增加延迟。\\
+传统的RISC流水线包括:
+\begin{myquote}
+1. 指令提取 (Instruction Fetch,IF)\\
+2. 指令解码和寄存器提取 (Instruction decode and register fetch,ID) \\
+3. 执行 (Execute,EX) \\
+4. 内存访问 (Memory access,MEM) \\
+5. 寄存器回写 (Register write back,WB) \\
+\end{myquote}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|*{7}{c}|}
+\hline
+\diagbox{指令}{时钟}&1&2&3&4&5&6&7 \\
+\hline
+1&IF&ID&EX&MEM&WB&& \\
+2&&IF&ID&EX&MEM&WB& \\
+3&&&IF&ID&EX&MEM&WB \\
+\hline
+\end{tabular}
+\caption{上图演示了传统的RISC流水线示意图。}
+\label{tb:shiyi}
+\end{table}
+\section{流水线的范例}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.4]{pipe.pdf}
+	\caption{ 
+		维基百科上简单的一个流水线事例。笔者做了翻译。
+	}
+	\label{fig:pipeliing}
+\end{figure}
+\begin{table}[H]
+\begin{tabular}{|c|c|}
+\hline
+时钟&执行 \\
+\hline
+0&所有指令等待执行 \\
+\hline
+1&绿色指令从内存中获取 \\
+\hline
+2&绿色指令被解码，紫色指令从内存中获取 \\
+\hline
+3&绿色指令被执行（实际操作被执行），紫色指令被解码，蓝色指令被提取 \\
+\hline
+4&绿色指令的结果被写回寄存器文件或存储器，紫色指令被执行，蓝色指令被解码，红色指令被提取 \\
+\hline
+5&绿色指示的执行完成，紫色指令被写回，蓝色指令被执行，红色指令被解码\\
+\hline
+6&紫色指令的执行完成， 蓝色指令被写回，红色指令被执行\\
+\hline
+7& 蓝色指令的执行完成，红色指令被写回\\
+\hline
+8& 红色指令的执行完成\\
+\hline
+9& 全部四条指令的执行完成\\
+\hline
+\end{tabular}
+\end{table}
+\section{流水线的问题}
+\subsection{资源相关冲突}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{bubble.pdf}
+	\caption{ 
+		维基百科上简单的一个流水线气泡等待事例。笔者做了翻译。
+	}
+	\label{fig:bubble}
+\end{figure}
+\indent{资源相关冲突是因为多条指令在同一机器周期征用同一个功能组件发生冲突。
+一般可以使用多重储存器或者气泡等待方法避免冲突。\\
+\indent{流水线处理器可以通过在流水线中停滞并产生气泡来处理资源冲突，但是会有一个多个周期指令无法完全执行。}\\
+\indent{在上图 \ref{fig:bubble} 中，在周期3中，处理器无法解码紫色指令，也许是因为处理器确定解码取决于执行绿色指令所产生的结果。绿色指令可按计划进入执行阶段，然后进入回写阶段，但紫色指令在取消阶段暂停一个周期。蓝色指令在循环3中将被取出，该指令会暂停一个周期，其后的红色指令也会停止。由于气泡（图中的蓝色椭圆），处理器的解码电路在周期3期间处于空闲状态。其执行电路在周期4期间处于空闲状态，并且在周期5期间其回写电路处于空闲状态。当气泡移出管道时（在周期6），正常执行恢复。}\\
+\indent{但现在一切都晚了一个周期。它需要8个周期（周期1到8）而不是7个来完全执行以颜色显示的四条指令。}
+\subsection{数据相关冲突}
+数据相关冲突是后一个指令等待前一个指令的结果所造成的冲突。
+一共有三种冲突相关：($X_2AX_1$)
+\begin{myquote}
+	1. 写后读 (Read After Write,RAW)\\
+	2. 读后写 (Write After Read,WAR)\\
+	3. 写后写 (Write After Write,WAW) \\
+\end{myquote}
+\indent{顾名思义，是第二步($X_2$)操作在第一步($X_1$)操作之后发生的数据相关。}
+\subsection{控制流冲突}
+控制流冲突是流水线必须等待一个有条件的Goto的指令是否被执行。\\
+我们使用两种转移处理技术处理这个问题：\\
+\indent\textbf{延迟转移法}\hspace{1em}使用编译程序重排指令序列。在发生转移取时让跟在指令流水线里紧跟转移指令后指令完成，在这些指令与转移指令无关时候，可以把延迟时间有效的利用。\\
+\indent\textbf{预测转移法}\hspace{1em}使用硬件实现，根据过去行为进行预测，使用预取队列器，多种cache提前进行转移预测。
+\section{流水线的优缺点}
+流水线的能够提高处理器运行速度，但是如果分支预测错误，流水线所有指令需要取消并重新执行，这会导致延迟时间，该事件段CPU并未工作。
+%\nocite{JiaoZhu}
+%\nocite{ZuoZheXinXi}
+
+%\nocite{ZiTiDaXiao}
+%\nocite{yinyongwangye}
+\nocite{LiuHaiYang}
+\nocite{BaiZhongYing}
+\bibliography{computer}
+
+\end{document}
