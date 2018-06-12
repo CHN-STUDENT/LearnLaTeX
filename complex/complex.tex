@@ -1,0 +1,127 @@
+\documentclass[UTF8,18pt]{ctexart}
+\usepackage{geometry}
+\usepackage{url}
+% to fix url issue
+\def\UrlBreaks{%
+	\do\/%
+	\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+	\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+	\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+	\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+	\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+	\do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+
+\usepackage{diagbox}
+\geometry{a4paper,centering,scale=0.8}
+\usepackage[format=hang,font=small,textfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\newenvironment{myquote}
+{\begin{quote}\kaishu\zihao{-5}}
+	{\end{quote}}
+\title{\heiti C++ 实验：运算符重载的实现}
+\author{\kaishu 郭XX}
+\affil{\small{xxxxxxxxx，物联网 xxxxxx，XX 大学}}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\maketitle
+% 摘要部分
+\begin{abstract}
+这是使用\LaTeX 写的实验C++报告：运算符重载的实现简单的复数运算。
+\end{abstract}
+{\small 关键词：\underline{C++}，\underline{运算符重载}，\underline{复数运算}
+
+% 目录部分
+\tableofcontents
+\section{复数的知识}
+本程序通过C++实现简单的复数运算，使用了运算符重载完成自定类型的运算。
+\subsection{复数的概念}
+复数，为实数的延伸，它使任一多项式方程都有根。复数当中有个“虚数单位” $ i $，它是 $-1$一个平方根，即 $ i^{2}=-1 $。任一复数都可表达为$ x + yi$，其中 $x$及$y$皆为实数，分别称为复数之“实部”和“虚部”。
+\subsection{复数运算规律}
+\begin{figure}[H]
+	\includegraphics[scale=0.4]{complex.png}
+	\caption{复数的运算规律，图片来自 维基 百科}
+	\label{fig:complex}
+\end{figure}
+
+\section{C++运算符重载}
+\subsection{运算符重载简介}
+通常运算符重载是一种语法糖，在计算机语言中对功能没有影响，能让程序更简洁，更具有可读性。
+我们可以通过全局或者各个类重新定义大多数内置运算符的函数，重载运算符作为函数实现，实现自定义数据类型的易读运算。
+重载运算符的名称是 operator x，例如我们可以重载加法运算符，则可用 operator +实现，同样可以实现其他运算符的重载。
+\subsection{运算符重载一般规则}
+这里我们参考MSDN社区的文档，了解学习运算符重载规则：
+\begin{myquote}
+你不能定义新运算符，如 。。
+
+将运算符应用于内置数据类型时，不能重新定义其含义。
+
+重载运算符必须是非静态类成员函数或全局函数。 需要访问私有或受保护的类成员的全局函数必须声明为该类的友元。 全局函数必须至少采用一个类类型或枚举类型的参数，或者作为对类类型或枚举类型的引用的参数。
+
+运算符遵循它们通常用于内置类型时指定的操作数的优先级、分组和数量。
+声明为成员函数的一元运算符将不采用自变量；如果声明为全局函数，它们将采用一个自变量。
+
+声明为成员函数的二元运算符将采用一个自变量；如果声明为全局函数，它们将采用两个自变量。
+
+重载运算符不能具有默认自变量。
+
+除赋值 (operator=) 之外的所有重载运算符均由派生类继承。
+
+成员函数重载运算符的第一个自变量始终属于针对其调用运算符的对象的类类型（从中声明运算符的类或派生自该类的类）。 没有为第一个参数提供转换。
+\end{myquote}
+\subsection{无法重载的运算符}
+绝大部分运算符都可以重载，但是有些例外，下面是那些不可重定义的运算符。因此我们无法将这些符号重载。
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{nooverload.png}
+	\caption{无法重载的运算符，图片来自 MSDN 文档}
+	\label{fig:nooverload}
+\end{figure}
+\section{实验目的}
+\subsection{简介}
+通过使用使用类定义复数类 complex , 私有变量 imag 和 real 分别代表复数的虚部和实部，在该类中有构造函数，可以根据数据初始化或者默认用0初始化，还可以的得到该类的数据和设置数据。
+
+
+同时在类中重载了四则运算符，运用复数的公式完成相关计算并且返回，也重载输入输出流，了解了友元函数 friend ，并且复习类相关知识。
+
+特别要注意的是，因为数据类型的不同，重载又分为在类中定义函数或者在全局定义函数，为了访问复数类 complex 私有成员，因此需要友元函数。
+
+具体请看代码赏析。
+
+\section{附录}
+\subsection{源码}
+
+\subsubsection{main.cpp}
+\begin{figure}[H]
+	\includegraphics[scale=0.86]{complex_main.pdf}
+\end{figure}
+\subsubsection{complex.h}
+\begin{figure}[H]
+	\includegraphics[scale=0.86]{complex_complex_h.pdf}
+\end{figure}
+\subsubsection{complex.cpp}
+\begin{figure}[H]
+	\includegraphics[scale=0.8]{complex_complex_cpp.pdf}
+\end{figure}
+\subsection{UML图}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{complex_uml.pdf}
+	\caption{complex 类的 UML 图}
+	\label{fig:uml}
+\end{figure}
+\bibliography{computer}
+\nocite{LiuHaiYang}
+\nocite{fushu}
+\nocite{chongzai}
+\nocite{overload}
+\nocite{rulu_overload}
+
+\end{document}

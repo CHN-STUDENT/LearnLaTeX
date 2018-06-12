@@ -1,0 +1,34 @@
+\begin{thebibliography}{1}
+
+\bibitem{LiuHaiYang}
+刘海洋.
+\newblock {\em LaTeX入门}.
+\newblock 电子工业出版社, 2013.
+
+\bibitem{overload}
+MSDN 文档.
+\newblock {运算符重载}.
+\newblock
+  \url{https://docs.microsoft.com/zh-cn/cpp/cpp/operator-overloading#nonredefinable-operators}.
+\newblock 2016.11.04.
+
+\bibitem{rulu_overload}
+MSDN 文档.
+\newblock {运算符重载一般规则}.
+\newblock
+  \url{https://docs.microsoft.com/zh-cn/cpp/cpp/general-rules-for-operator-overloading}.
+\newblock 2016.11.04.
+
+\bibitem{fushu}
+维基百科.
+\newblock {复数 (数学)}.
+\newblock
+  \url{https://zh.wikipedia.org/wiki/%E5%A4%8D%E6%95%B0_(%E6%95%B0%E5%AD%A6)}.
+
+\bibitem{chongzai}
+维基百科.
+\newblock {运算符重载}.
+\newblock
+  \url{https://zh.wikipedia.org/wiki/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD}.
+
+\end{thebibliography}
