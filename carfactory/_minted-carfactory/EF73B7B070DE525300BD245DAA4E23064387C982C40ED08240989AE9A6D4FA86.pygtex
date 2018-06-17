@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:Car.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Car.h\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{Car}\PYG{o}{::}\PYG{n}{setColor}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Color}\PYG{o}{=}\PYG{n}{color}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{Car}\PYG{o}{::}\PYG{n}{setTire}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{tire}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Tire}\PYG{o}{=}\PYG{n}{tire}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{Car}\PYG{o}{::}\PYG{n}{getColor}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{Color}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n}{Car}\PYG{o}{::}\PYG{n}{getTire}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{Tire}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{Car}\PYG{o}{::}\PYG{n}{print}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The car\PYGZsq{}s color is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Color}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,It has \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Tire}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} tire(s).\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

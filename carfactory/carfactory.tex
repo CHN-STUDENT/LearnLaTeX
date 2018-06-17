@@ -1,0 +1,490 @@
+\documentclass[UTF8,18pt]{ctexart}
+\usepackage{geometry}
+\usepackage{url}
+
+% to fix url issue
+\def\UrlBreaks{%
+	\do\/%
+	\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+	\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+	\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+	\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+	\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+	\do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+
+\usepackage{diagbox}
+\geometry{a4paper,centering,scale=0.8}
+\usepackage[format=hang,font=small,textfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{minted}
+\setlength{\parindent}{2em}
+\newenvironment{myquote}
+{\begin{quote}\kaishu\zihao{-5}}
+	{\end{quote}}
+\title{\heiti C++ 实验：继承和多态}
+\author{\kaishu 郭XX}
+\affil{\small{xxxxxxxxx，物联网 xxxx，XX 大学}}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\maketitle
+% 摘要部分
+\begin{abstract}
+这是使用\LaTeX 写的实验C++报告：类的继承以及多态。
+\end{abstract}
+{\small 关键词：\underline{C++}，\underline{类继承}，\underline{多态}，\underline{虚函数}}
+
+% 目录部分
+\tableofcontents
+\section{C++ 继承}
+\subsection{简介}
+面向对象程序设计中最重要的一个概念是继承。继承允许我们依据另一个类来定义一个类，这使得创建和维护一个应用程序变得更容易。这样做，也达到了重用代码功能和提高执行时间的效果。
+
+当创建一个类时，您不需要重新编写新的数据成员和成员函数，只需指定新建的类继承了一个已有的类的成员即可。这个已有的类称为\textbf{基类}，新建的类称为\textbf{派生类}。
+
+继承代表了 \textbf{is a }关系。例如，哺乳动物是动物，狗是哺乳动物，因此，狗是动物，等等。
+\subsection{继承类型}
+这里也是引用在线【 菜鸟教程】 的说明：
+\begin{myquote}
+当一个类派生自基类，该基类可以被继承为 \textbf{public}、\textbf{protected} 或 \textbf{private} 几种类型。继承类型是通过上面讲解的访问修饰符 access-specifier 来指定的。
+
+我们几乎不使用 \textbf{protected }或 \textbf{private }继承，通常使用 \textbf{public} 继承。当使用不同类型的继承时，遵循以下几个规则：
+
+\textbf{公有继承（public）}：当一个类派生自\textbf{公有}基类时，基类的\textbf{公有}成员也是派生类的\textbf{公有}成员，基类的\textbf{保护}成员也是派生类的\textbf{保护}成员，基类的\textbf{私有}成员不能直接被派生类访问，但是可以通过调用基类的\textbf{公有}和\textbf{保护}成员来访问。
+
+\textbf{保护继承（protected）}： 当一个类派生自\textbf{保护}基类时，基类的\textbf{公有}和\textbf{保护}成员将成为派生类的\textbf{保护}成员。
+
+\textbf{私有继承（private）}：当一个类派生自\textbf{私有}基类时，基类的\textbf{公有}和\textbf{保护}成员将成为派生类的\textbf{私有}成员。
+\end{myquote}
+\subsection{访问控制和继承}
+派生类可以访问基类中所有的非私有成员。因此基类成员如果不想被派生类的成员函数访问，则应在基类中声明为 private。
+
+我们可以根据访问权限总结出不同的访问类型，如 表\ref{tb:xianzhi} 所示：
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|*{3}{c}|}
+		\hline
+		访问&public&protected&private \\
+		\hline
+		同一个类&Yes&Yes&Yes \\
+		派生类&Yes&Yes&No \\
+		外部的类&Yes&No&No \\
+		\hline
+	\end{tabular}
+	\caption{上图演示了不同的访问类型。}
+	\label{tb:xianzhi}
+\end{table}
+
+\textbf{派生类无法继承的情况：}
+
+\qquad1. 基类的构造函数、析构函数和拷贝构造函数。
+
+\qquad2. 基类的重载运算符。
+
+\qquad3. 基类的友元函数。
+
+\subsection{基类和派生类构建过程}
+在 C++ Primer Plus 6th 中讲解如下：
+\begin{myquote}
+派生类构造函数：
+
+\qquad1. 首先创建基类对象
+
+\qquad2. 派生类构造函数应通过成员初始化列表传递给基类构造函数
+
+\qquad3. 派生类构造函数应初始化派生类新增数据成员
+\end{myquote}
+\section{C++ 多态}
+
+\subsection{什么是多态}
+多态按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。也可解释为派生类和基类的行为是不同的，使用同一个方法行为要根据上下文确定。
+
+\subsection{如何实现多态公有继承}
+有两种方法可以实现多态公有继承：
+
+\qquad1. 在派生类重新定义基类 
+
+\qquad2. 使用虚方法 
+
+一般我们使用第二种，虚方法，又叫虚函数。
+\subsubsection{纯虚函数以及派生类}
+
+\textbf{纯虚函数：}
+纯虚函数或纯虚方法是一个虚拟函数，需要由不是抽象的派生类来实现。
+
+\textbf{派生类:}
+在编程语言中，抽象类型是一种不能直接实例化的主导类型系统中的类型;一个不抽象的类型可以被实例化被称为具体类型。
+\subsubsection{如何通过纯虚函数设计派生类}
+设计抽象类（通常称为 ABC）的目的，是为了给其他类提供一个可以继承的适当的基类。抽象类不能被用于实例化对象，它只能作为接口使用。如果试图实例化一个抽象类的对象，会导致编译错误。
+因此，如果一个 ABC 的子类需要被实例化，则必须实现每个虚函数，这也意味着 C++ 支持使用 ABC 声明接口。如果没有在派生类中重载纯虚函数，就尝试实例化该类的对象，会导致编译错误。
+可用于实例化对象的类被称为具体类。
+如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。纯虚函数是通过在声明中使用 "= 0" 来指定的。
+\section{实验目的}
+\subsection{简介}
+通过学习简单的类定义和类继承，了解C++的多态，抽象类，虚函数；派生类。实现数据和程序的方便可视的处理和计算。
+
+此外我是使用了C++11标准的成员初始化器列表 \mintinline{c}{member initializer} ，以及基于范围的 \mintinline{c}{for} 循环 for range用来熟悉新版C++特性，学习更多，跟随潮流。
+
+具体请看代码赏析。
+
+这是我们最后一个C++实验，也是我用\LaTeX 写的第二篇实验报告，之所以用 \LaTeX 写实验报告，是因为我想认真完成，也想试试新的东西。我觉得自己喜欢的事业，就应该应该的认真完成，虽然十分花费时间，但是我觉得很值得，年轻就应该多闯闯。
+
+最后谢谢老师的帮助和教导，老师您幸苦了。
+
+\section{附录}
+\subsection{源码}
+
+\subsubsection{main.cpp}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Sources:main.cpp
+#include <iostream>
+#include "sportCar.h"
+#include "Truck.h"
+#include "Car.h"
+
+using namespace std;
+
+int main()
+{
+    //Car mycar();
+    //The class car is abstract,so it can not be instantiated.
+
+    //sportCar e1();
+    //e1.print();
+    //this is error,i do not know why.
+
+    sportCar car1("White");
+    car1.print();
+    std::cout<<std::endl;
+    sportCar car2("Red",4,4);
+    car2.print();
+    std::cout<<std::endl;
+    //Truck e2();
+    //e2.print();
+    //this also is error,i do not know why.
+
+    Truck car3("Gray");
+    car3.print();
+    std::cout<<std::endl;
+
+    Truck car4("Black",6,"Gasoline");
+    car4.print();
+    std::cout<<std::endl;
+
+    Car *ptr[4];
+    ptr[0]=&car1;
+    ptr[1]=&car2;
+    ptr[2]=&car3;
+    ptr[3]=&car4;
+
+    //C++11 for range
+    for( const auto &y : ptr )
+    {   // Type inference by const reference.
+        // Observes in-place. Preferred when no modify is needed.
+        // 参考：https://docs.microsoft.com/zh-cn/cpp/cpp/range-based-for-statement-cpp
+        y->print();
+    }
+    /*
+        以上代码等价:
+        for (int i = 0; i < 5; i++)
+            ptr[i]->print();
+    */
+
+    cout << endl;
+
+    return 0;
+}
+#endif
+\end{minted}
+\subsubsection{car.cpp}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Sources:Car.cpp
+#include "Car.h"
+
+void Car::setColor(std::string color)
+{
+    Color=color;
+}
+
+void Car::setTire(int tire)
+{
+    Tire=tire;
+}
+
+std::string Car::getColor() const
+{
+    return Color;
+}
+
+int Car::getTire() const
+{
+    return Tire;
+}
+
+void Car::print()
+{
+    std::cout<<"The car's color is "<<Color<<" ,It has "<<Tire<<" tire(s)."<<std::endl;
+}
+
+\end{minted}
+\subsubsection{car.h}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Headers:Car.h
+#ifndef CAR_H
+#define CAR_H
+
+#include <iostream>
+#include <string>
+
+/*
+    设计抽象类（通常称为 ABC）的目的，是为了给其他类提供一个可以继承的适当的基类。抽象类不能被用于实例化对象，它只能作为接口使用。如果试图实例化一个抽象类的对象，会导致编译错误。
+    因此，如果一个 ABC 的子类需要被实例化，则必须实现每个虚函数，这也意味着 C++ 支持使用 ABC 声明接口。如果没有在派生类中重载纯虚函数，就尝试实例化该类的对象，会导致编译错误。
+    可用于实例化对象的类被称为具体类。
+    如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。纯虚函数是通过在声明中使用 "= 0" 来指定的
+    摘自:http://www.runoob.com/cplusplus/cpp-interfaces.html
+*/
+
+
+/*
+    从一个类派生出一个类，原始类成为基类，继承类称为派生类
+    多态：派生类和基类的行为是不同的，同一个方法行为根据上下文，有两种方法可以实现多态公有继承：
+    1.在派生类重新定义基类
+    2.使用虚方法
+    - C++ Primer Plus 6th
+*/
+
+class Car
+{
+    //这是个抽象类
+public:
+	Car(std::string color="White",int tire=4) : Color(color),Tire(tire){}; //constuctor 构造函数
+	/*
+       member initializer 成员初始化器列表
+       等价于：
+       Car(std::string color="White",int tire=4)
+       {
+            Color=color;
+            Tire=tire;
+       }
+       - https://www.geeksforgeeks.org/when-do-we-use-initializer-list-in-c/
+	*/
+	~Car(){};//destructors
+	void setColor(std::string);
+	std::string getColor() const;
+	void setTire(int);
+	int getTire() const;
+	virtual void print()=0;//纯虚函数
+    /*
+        A pure virtual function or pure virtual method is a virtual function that is required to be implemented by a derived class that is not abstract" - Wikipedia
+        “纯虚函数或纯虚方法是一个虚拟函数，需要由不是抽象的派生类来实现“ - 维基百科
+        In programming languages, an abstract type is a type in a nominative type system that cannot be instantiated directly; a type that is not abstract – which can be instantiated – is called a concrete type. Every instance of an abstract type is an instance of some concrete subtype. Abstract types are also known as existential types.
+        “在编程语言中，抽象类型是一种不能直接实例化的主导类型系统中的类型;一个不抽象的类型可以被实例化被称为具体类型。”- 维基百科
+        C++ Virtual/Pure Virtual Explained:
+        https://stackoverflow.com/questions/1306778/c-virtual-pure-virtual-explained
+        Virtual function:
+        https://en.wikipedia.org/wiki/Virtual_function
+    */
+private:
+	std::string Color;
+	int Tire;
+};//do not forget ;
+
+#endif
+\end{minted}
+\subsubsection{sportcar.cpp}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Sources:sportCar.cpp
+#include "sportCar.h"
+
+void sportCar::setDoor(int door)
+{
+    Door=door;
+}
+
+int sportCar::getDoor() const
+{
+    return Door;
+}
+
+void sportCar::print()
+{
+    //std::cout<<"The sportCar's color is "<<Color<<" ,It has "<<Tire<<" tire(s) and "<<Door<<" Door(s)."<<std::endl;
+    //This is error,the complier will tell it is private,but we can use like this
+    int tire=Car::getTire();
+    std::string color=Car::getColor();
+    std::cout<<"The sportCar's color is "<<color<<" ,It has "<<tire<<" tire(s) and "<<Door<<" door(s)."<<std::endl;
+    //or like this:
+    Car::print();
+    std::cout<<"It also has "<<Door<<" door(s)."<<std::endl;
+}
+
+\end{minted}
+\subsubsection{sportcar.h}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Headers:sportCar.h
+#ifndef SPORTCAR_H
+#define SPORTCAR_H
+
+#include "Car.h"
+
+class sportCar : public Car
+{
+//继承Car类
+public:
+	sportCar(std::string color="Black", int tire=4, int door=2): Car(color,tire),Door(door) {};
+	//将参数从派生类构造函数传递给基类构造函数
+    /*
+        派生类构造函数
+        首先创建基类对象
+        派生类构造函数应通过成员初始化列表传递给基类构造函数
+        派生类构造函数应初始化派生类新增数据成员
+        - C++ Primer Plus 6th
+    */
+	~sportCar(){};
+	void setDoor(int);
+	int getDoor() const;
+	void virtual print();
+private:
+	int Door;
+};
+
+
+#endif
+
+\end{minted}
+
+\subsubsection{Truck.cpp}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Sources:Truck.cpp
+#include "Truck.h"
+
+Truck::Truck(std::string color,int tire,std::string engine)
+    : Car(color,tire)
+{
+    setEngine(engine);
+    // Engine=engine;
+}
+Truck::~Truck()
+{
+
+}
+void Truck::setEngine(std::string engine)
+{
+    Engine=engine;
+}
+std::string Truck::getEngine()
+{
+    return Engine;
+}
+void Truck::print()
+{
+    int tire=Car::getTire();
+    std::string color=Car::getColor();
+    std::cout<<"The truck's color is "<<color<<" ,It has "<<tire<<" tire(s) and "<<Engine<<" engine."<<std::endl;
+    //or like this:
+    Car::print();
+    std::cout<<"It also has "<<Engine<<" engine."<<std::endl;
+}               
+\end{minted}             
+\subsubsection{Truck.h}
+\begin{minted}[%showtabs,
+			   obeytabs,
+               linenos,
+               numbersep=5pt,
+               breaksymbolleft={\ },
+               breaklines, %自动折行  
+               tabsize=4, %设置tab空格数 
+               frame=lines,
+               framesep=2mm]{cpp}
+//Headers:Truck.h
+#ifndef TRUCK_H
+#define TRUCK_H
+
+#include "Car.h"
+
+class Truck : public Car
+{
+public:
+	Truck(std::string="",int=4,std::string="Diesel");
+	~Truck();
+	void setEngine(std::string);
+	std::string getEngine();
+	void virtual print();
+private:
+	std::string Engine;
+};
+
+
+
+#endif
+\end{minted}
+
+\subsection{UML图}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{uml.pdf}
+	\caption{ UML 图}
+	\label{fig:uml}
+\end{figure}
+\bibliography{computer}
+\nocite{LiuHaiYang}
+\nocite{cpp}
+\nocite{for_range}
+\nocite{xuhanshu}
+\nocite{jicheng}
+\nocite{jiekou}
+\end{document}

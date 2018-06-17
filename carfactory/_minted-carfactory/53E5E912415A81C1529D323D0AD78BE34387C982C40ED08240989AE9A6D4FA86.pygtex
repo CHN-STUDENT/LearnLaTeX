@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Headers:sportCar.h}
+\PYG{c+cp}{\PYGZsh{}ifndef SPORTCAR\PYGZus{}H}
+\PYG{c+cp}{\PYGZsh{}define SPORTCAR\PYGZus{}H}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Car.h\PYGZdq{}}
+
+\PYG{k}{class} \PYG{n+nc}{sportCar} \PYG{o}{:} \PYG{k}{public} \PYG{n}{Car}
+\PYG{p}{\PYGZob{}}
+\PYG{c+c1}{//继承Car类}
+\PYG{k}{public}\PYG{o}{:}
+	\PYG{n}{sportCar}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Black\PYGZdq{}}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{tire}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{door}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{:} \PYG{n}{Car}\PYG{p}{(}\PYG{n}{color}\PYG{p}{,}\PYG{n}{tire}\PYG{p}{),}\PYG{n}{Door}\PYG{p}{(}\PYG{n}{door}\PYG{p}{)} \PYG{p}{\PYGZob{}\PYGZcb{};}
+	\PYG{c+c1}{//将参数从派生类构造函数传递给基类构造函数}
+    \PYG{c+cm}{/*}
+\PYG{c+cm}{        派生类构造函数}
+\PYG{c+cm}{        首先创建基类对象}
+\PYG{c+cm}{        派生类构造函数应通过成员初始化列表传递给基类构造函数}
+\PYG{c+cm}{        派生类构造函数应初始化派生类新增数据成员}
+\PYG{c+cm}{        \PYGZhy{} C++ Primer Plus 6th}
+\PYG{c+cm}{    */}
+	\PYG{o}{\PYGZti{}}\PYG{n}{sportCar}\PYG{p}{()\PYGZob{}\PYGZcb{};}
+	\PYG{k+kt}{void} \PYG{n+nf}{setDoor}\PYG{p}{(}\PYG{k+kt}{int}\PYG{p}{);}
+	\PYG{k+kt}{int} \PYG{n+nf}{getDoor}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+	\PYG{k+kt}{void} \PYG{k}{virtual} \PYG{n+nf}{print}\PYG{p}{();}
+\PYG{k}{private}\PYG{o}{:}
+	\PYG{k+kt}{int} \PYG{n}{Door}\PYG{p}{;}
+\PYG{p}{\PYGZcb{};}
+
+
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

@@ -1,0 +1,59 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Headers:complex.h}
+\PYG{c+cp}{\PYGZsh{}ifndef COMPLEX\PYGZus{}H}
+\PYG{c+cp}{\PYGZsh{}define COMPLEX\PYGZus{}H}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+
+\PYG{k}{class} \PYG{n+nc}{complex}
+\PYG{p}{\PYGZob{}}
+	\PYG{c+cm}{/*非类函数运算符 operator\PYGZlt{}\PYGZlt{} 和 operator\PYGZgt{}\PYGZgt{}}
+\PYG{c+cm}{      及 operator+ | operator\PYGZhy{} | operator* | operator/将拥有对 complex 的私有成员的访问 */}
+	\PYG{k}{friend} \PYG{n}{complex} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+	\PYG{k}{friend} \PYG{n}{complex} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+	\PYG{k}{friend} \PYG{n}{complex} \PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+	\PYG{k}{friend} \PYG{n}{complex} \PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+	\PYG{k}{friend} \PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+	\PYG{k}{friend} \PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{p}{,} \PYG{n}{complex} \PYG{o}{\PYGZam{}}\PYG{p}{);}
+\PYG{k}{private}\PYG{o}{:}
+	\PYG{k+kt}{float} \PYG{n}{real}\PYG{p}{;}
+	\PYG{k+kt}{float} \PYG{n}{imag}\PYG{p}{;}
+\PYG{k}{public}\PYG{o}{:}
+	\PYG{c+c1}{//construtor does not have return type}
+	\PYG{n}{complex}\PYG{p}{();}
+	\PYG{n}{complex}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{c+c1}{//Determine whether the objects are equal 判断对象是否相等}
+	\PYG{k+kt}{bool} \PYG{k}{operator}\PYG{o}{==}\PYG{p}{(}\PYG{k}{const} \PYG{n}{complex} \PYG{o}{\PYGZam{}}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{n}{complex}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{complex}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{n}{complex}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{n}{complex}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{k+kt}{void} \PYG{n+nf}{setComplex}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,}\PYG{k+kt}{float}\PYG{p}{);}
+	\PYG{k+kt}{float} \PYG{n+nf}{getReal}\PYG{p}{();}
+	\PYG{k+kt}{float} \PYG{n+nf}{getImag}\PYG{p}{();}
+	\PYG{k+kt}{float} \PYG{n+nf}{abs}\PYG{p}{();}
+	\PYG{k+kt}{void} \PYG{n+nf}{PrintComplex}\PYG{p}{();}
+\PYG{p}{\PYGZcb{};}\PYG{c+c1}{//do not forget!}
+
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	参考：http://zh.cppreference.com/w/cpp/language/friend}
+\PYG{c+cm}{	友元声明不作为类的成员函数}
+\PYG{c+cm}{	operator\PYGZlt{}\PYGZlt{} 和 operator \PYGZgt{}\PYGZgt{} 及 operator + ， operator \PYGZhy{} ， operator * ，operator /}
+\PYG{c+cm}{	但仍需要声明，作为类的非成员}
+\PYG{c+cm}{*/}
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{k+kt}{float}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{p}{,} \PYG{n}{complex}\PYG{p}{);}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{p}{,} \PYG{n}{complex} \PYG{o}{\PYGZam{}}\PYG{p}{);} \PYG{c+c1}{//INPUT需要改变值，因此是引用传递}
+\PYG{c+c1}{//输入输出流也要被改变，所以是引用传递}
+
+
+
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

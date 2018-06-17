@@ -1,0 +1,61 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:main.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}sportCar.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Truck.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Car.h\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{//Car mycar();}
+    \PYG{c+c1}{//The class car is abstract,so it can not be instantiated.}
+
+    \PYG{c+c1}{//sportCar e1();}
+    \PYG{c+c1}{//e1.print();}
+    \PYG{c+c1}{//this is error,i do not know why.}
+
+    \PYG{n}{sportCar} \PYG{n}{car1}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}White\PYGZdq{}}\PYG{p}{);}
+    \PYG{n}{car1}\PYG{p}{.}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{sportCar} \PYG{n}{car2}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Red\PYGZdq{}}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{);}
+    \PYG{n}{car2}\PYG{p}{.}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+    \PYG{c+c1}{//Truck e2();}
+    \PYG{c+c1}{//e2.print();}
+    \PYG{c+c1}{//this also is error,i do not know why.}
+
+    \PYG{n}{Truck} \PYG{n}{car3}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Gray\PYGZdq{}}\PYG{p}{);}
+    \PYG{n}{car3}\PYG{p}{.}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+
+    \PYG{n}{Truck} \PYG{n}{car4}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Black\PYGZdq{}}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{,}\PYG{l+s}{\PYGZdq{}Gasoline\PYGZdq{}}\PYG{p}{);}
+    \PYG{n}{car4}\PYG{p}{.}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+
+    \PYG{n}{Car} \PYG{o}{*}\PYG{n}{ptr}\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{];}
+    \PYG{n}{ptr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{=\PYGZam{}}\PYG{n}{car1}\PYG{p}{;}
+    \PYG{n}{ptr}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{=\PYGZam{}}\PYG{n}{car2}\PYG{p}{;}
+    \PYG{n}{ptr}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{=\PYGZam{}}\PYG{n}{car3}\PYG{p}{;}
+    \PYG{n}{ptr}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{]}\PYG{o}{=\PYGZam{}}\PYG{n}{car4}\PYG{p}{;}
+
+    \PYG{c+c1}{//C++11 for range}
+    \PYG{k}{for}\PYG{p}{(} \PYG{k}{const} \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n+nl}{y} \PYG{p}{:} \PYG{n}{ptr} \PYG{p}{)}
+    \PYG{p}{\PYGZob{}}   \PYG{c+c1}{// Type inference by const reference.}
+        \PYG{c+c1}{// Observes in\PYGZhy{}place. Preferred when no modify is needed.}
+        \PYG{c+c1}{// 参考：https://docs.microsoft.com/zh\PYGZhy{}cn/cpp/cpp/range\PYGZhy{}based\PYGZhy{}for\PYGZhy{}statement\PYGZhy{}cpp}
+        \PYG{n}{y}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{print}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{c+cm}{/*}
+\PYG{c+cm}{        以上代码等价:}
+\PYG{c+cm}{        for (int i = 0; i \PYGZlt{} 5; i++)}
+\PYG{c+cm}{            ptr[i]\PYGZhy{}\PYGZgt{}print();}
+\PYG{c+cm}{    */}
+
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

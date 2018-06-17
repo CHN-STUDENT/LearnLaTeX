@@ -1,0 +1,46 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:main.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}complex.h\PYGZdq{}}
+
+\PYG{c+cm}{/* run this program using the console pauser or add your own getch, system(\PYGZdq{}pause\PYGZdq{}) or input loop */}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{**} \PYG{n}{argv}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+	\PYG{n}{complex} \PYG{n}{complex1}\PYG{p}{;}
+	\PYG{n}{complex} \PYG{n}{complex2}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.0}\PYG{p}{,}\PYG{l+m+mf}{1.6}\PYG{p}{);}
+	\PYG{n}{complex1}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex2}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex1}\PYG{p}{.}\PYG{n}{setComplex}\PYG{p}{(}\PYG{l+m+mf}{2.0}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.8}\PYG{p}{);}
+	\PYG{n}{complex1}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex2}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex} \PYG{n}{complex3}\PYG{p}{;}
+	\PYG{n}{complex3}\PYG{p}{.}\PYG{n}{setComplex}\PYG{p}{(}\PYG{l+m+mf}{6.6}\PYG{p}{,}\PYG{l+m+mf}{8.8}\PYG{p}{);}
+	\PYG{k+kt}{float} \PYG{n}{real}\PYG{o}{=}\PYG{n}{complex3}\PYG{p}{.}\PYG{n}{getReal}\PYG{p}{();}
+	\PYG{k+kt}{float} \PYG{n}{imag}\PYG{o}{=}\PYG{n}{complex3}\PYG{p}{.}\PYG{n}{getImag}\PYG{p}{();}
+	\PYG{k+kt}{float} \PYG{n}{abs}\PYG{o}{=}\PYG{n}{complex3}\PYG{p}{.}\PYG{n}{abs}\PYG{p}{();}
+
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex is (\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}) + (\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}) i\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex \PYGZsq{}s real is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,its imag is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex \PYGZsq{}s abs is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{abs}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+
+	\PYG{n}{complex} \PYG{n}{complex4}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{9.9}\PYG{p}{,}\PYG{l+m+mf}{8.8}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{n}{complex5}\PYG{p}{(}\PYG{l+m+mf}{8.8}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{9.9}\PYG{p}{);}
+	\PYG{n}{complex} \PYG{n}{complex6}\PYG{p}{;}
+	\PYG{n}{complex6}\PYG{p}{.}\PYG{n}{setComplex}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{9.9}\PYG{p}{,}\PYG{l+m+mf}{8.8}\PYG{p}{);}
+
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{boolalpha} \PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{complex3}\PYG{o}{==}\PYG{n}{complex4}\PYG{p}{)}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{complex4}\PYG{o}{==}\PYG{n}{complex4}\PYG{p}{)}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{complex4}\PYG{o}{==}\PYG{n}{complex5}\PYG{p}{)}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{complex4}\PYG{o}{==}\PYG{n}{complex6}\PYG{p}{)}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+
+	\PYG{n}{complex} \PYG{n}{complex7}\PYG{o}{=}\PYG{n}{complex4}\PYG{o}{+}\PYG{n}{complex5}\PYG{p}{;}
+	\PYG{n}{complex7}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex} \PYG{n}{complex8}\PYG{o}{=}\PYG{n}{complex4}\PYG{o}{\PYGZhy{}}\PYG{n}{complex5}\PYG{p}{;}
+	\PYG{n}{complex8}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex} \PYG{n}{complex9}\PYG{o}{=}\PYG{n}{complex4}\PYG{o}{*}\PYG{n}{complex5}\PYG{p}{;}
+	\PYG{n}{complex9}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+	\PYG{n}{complex} \PYG{n}{complex10}\PYG{o}{=}\PYG{n}{complex4}\PYG{o}{/}\PYG{n}{complex5}\PYG{p}{;}
+	\PYG{n}{complex10}\PYG{p}{.}\PYG{n}{PrintComplex}\PYG{p}{();}
+
+	\PYG{n}{system}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pause\PYGZdq{}}\PYG{p}{);}
+	\PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

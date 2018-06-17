@@ -1,0 +1,63 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Headers:Car.h}
+\PYG{c+cp}{\PYGZsh{}ifndef CAR\PYGZus{}H}
+\PYG{c+cp}{\PYGZsh{}define CAR\PYGZus{}H}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}string\PYGZgt{}}
+
+\PYG{c+cm}{/*}
+\PYG{c+cm}{    设计抽象类（通常称为 ABC）的目的，是为了给其他类提供一个可以继承的适当的基类。抽象类不能被用于实例化对象，它只能作为接口使用。如果试图实例化一个抽象类的对象，会导致编译错误。}
+\PYG{c+cm}{    因此，如果一个 ABC 的子类需要被实例化，则必须实现每个虚函数，这也意味着 C++ 支持使用 ABC 声明接口。如果没有在派生类中重载纯虚函数，就尝试实例化该类的对象，会导致编译错误。}
+\PYG{c+cm}{    可用于实例化对象的类被称为具体类。}
+\PYG{c+cm}{    如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。纯虚函数是通过在声明中使用 \PYGZdq{}= 0\PYGZdq{} 来指定的}
+\PYG{c+cm}{    摘自:http://www.runoob.com/cplusplus/cpp\PYGZhy{}interfaces.html}
+\PYG{c+cm}{*/}
+
+
+\PYG{c+cm}{/*}
+\PYG{c+cm}{    从一个类派生出一个类，原始类成为基类，继承类称为派生类}
+\PYG{c+cm}{    多态：派生类和基类的行为是不同的，同一个方法行为根据上下文，有两种方法可以实现多态公有继承：}
+\PYG{c+cm}{    1.在派生类重新定义基类}
+\PYG{c+cm}{    2.使用虚方法}
+\PYG{c+cm}{    \PYGZhy{} C++ Primer Plus 6th}
+\PYG{c+cm}{*/}
+
+\PYG{k}{class} \PYG{n+nc}{Car}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{//这是个抽象类}
+\PYG{k}{public}\PYG{o}{:}
+	\PYG{n}{Car}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}White\PYGZdq{}}\PYG{p}{,}\PYG{k+kt}{int} \PYG{n}{tire}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{)} \PYG{o}{:} \PYG{n}{Color}\PYG{p}{(}\PYG{n}{color}\PYG{p}{),}\PYG{n}{Tire}\PYG{p}{(}\PYG{n}{tire}\PYG{p}{)\PYGZob{}\PYGZcb{};} \PYG{c+c1}{//constuctor 构造函数}
+	\PYG{c+cm}{/*}
+\PYG{c+cm}{       member initializer 成员初始化器列表}
+\PYG{c+cm}{       等价于：}
+\PYG{c+cm}{       Car(std::string color=\PYGZdq{}White\PYGZdq{},int tire=4)}
+\PYG{c+cm}{       \PYGZob{}}
+\PYG{c+cm}{            Color=color;}
+\PYG{c+cm}{            Tire=tire;}
+\PYG{c+cm}{       \PYGZcb{}}
+\PYG{c+cm}{       \PYGZhy{} https://www.geeksforgeeks.org/when\PYGZhy{}do\PYGZhy{}we\PYGZhy{}use\PYGZhy{}initializer\PYGZhy{}list\PYGZhy{}in\PYGZhy{}c/}
+\PYG{c+cm}{	*/}
+	\PYG{o}{\PYGZti{}}\PYG{n}{Car}\PYG{p}{()\PYGZob{}\PYGZcb{};}\PYG{c+c1}{//destructors}
+	\PYG{k+kt}{void} \PYG{n+nf}{setColor}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{p}{);}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{getColor}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+	\PYG{k+kt}{void} \PYG{n+nf}{setTire}\PYG{p}{(}\PYG{k+kt}{int}\PYG{p}{);}
+	\PYG{k+kt}{int} \PYG{n+nf}{getTire}\PYG{p}{()} \PYG{k}{const}\PYG{p}{;}
+	\PYG{k}{virtual} \PYG{k+kt}{void} \PYG{n+nf}{print}\PYG{p}{()}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{c+c1}{//纯虚函数}
+    \PYG{c+cm}{/*}
+\PYG{c+cm}{        A pure virtual function or pure virtual method is a virtual function that is required to be implemented by a derived class that is not abstract\PYGZdq{} \PYGZhy{} Wikipedia}
+\PYG{c+cm}{        “纯虚函数或纯虚方法是一个虚拟函数，需要由不是抽象的派生类来实现“ \PYGZhy{} 维基百科}
+\PYG{c+cm}{        In programming languages, an abstract type is a type in a nominative type system that cannot be instantiated directly; a type that is not abstract – which can be instantiated – is called a concrete type. Every instance of an abstract type is an instance of some concrete subtype. Abstract types are also known as existential types.}
+\PYG{c+cm}{        “在编程语言中，抽象类型是一种不能直接实例化的主导类型系统中的类型;一个不抽象的类型可以被实例化被称为具体类型。”\PYGZhy{} 维基百科}
+\PYG{c+cm}{        C++ Virtual/Pure Virtual Explained:}
+\PYG{c+cm}{        https://stackoverflow.com/questions/1306778/c\PYGZhy{}virtual\PYGZhy{}pure\PYGZhy{}virtual\PYGZhy{}explained}
+\PYG{c+cm}{        Virtual function:}
+\PYG{c+cm}{        https://en.wikipedia.org/wiki/Virtual\PYGZus{}function}
+\PYG{c+cm}{    */}
+\PYG{k}{private}\PYG{o}{:}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{Color}\PYG{p}{;}
+	\PYG{k+kt}{int} \PYG{n}{Tire}\PYG{p}{;}
+\PYG{p}{\PYGZcb{};}\PYG{c+c1}{//do not forget ;}
+
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

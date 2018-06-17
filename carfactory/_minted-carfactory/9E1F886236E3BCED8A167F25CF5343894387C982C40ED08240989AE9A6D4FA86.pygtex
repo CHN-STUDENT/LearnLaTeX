@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Headers:Truck.h}
+\PYG{c+cp}{\PYGZsh{}ifndef TRUCK\PYGZus{}H}
+\PYG{c+cp}{\PYGZsh{}define TRUCK\PYGZus{}H}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Car.h\PYGZdq{}}
+
+\PYG{k}{class} \PYG{n+nc}{Truck} \PYG{o}{:} \PYG{k}{public} \PYG{n}{Car}
+\PYG{p}{\PYGZob{}}
+\PYG{k}{public}\PYG{o}{:}
+	\PYG{n}{Truck}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}\PYG{k+kt}{int}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Diesel\PYGZdq{}}\PYG{p}{);}
+	\PYG{o}{\PYGZti{}}\PYG{n}{Truck}\PYG{p}{();}
+	\PYG{k+kt}{void} \PYG{n+nf}{setEngine}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{p}{);}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{getEngine}\PYG{p}{();}
+	\PYG{k+kt}{void} \PYG{k}{virtual} \PYG{n+nf}{print}\PYG{p}{();}
+\PYG{k}{private}\PYG{o}{:}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{Engine}\PYG{p}{;}
+\PYG{p}{\PYGZcb{};}
+
+
+
+\PYG{c+cp}{\PYGZsh{}endif}
+\end{Verbatim}

@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:sportCar.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}sportCar.h\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n}{sportCar}\PYG{o}{::}\PYG{n}{setDoor}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{door}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Door}\PYG{o}{=}\PYG{n}{door}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n}{sportCar}\PYG{o}{::}\PYG{n}{getDoor}\PYG{p}{()} \PYG{k}{const}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{Door}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{sportCar}\PYG{o}{::}\PYG{n}{print}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{c+c1}{//std::cout\PYGZlt{}\PYGZlt{}\PYGZdq{}The sportCar\PYGZsq{}s color is \PYGZdq{}\PYGZlt{}\PYGZlt{}Color\PYGZlt{}\PYGZlt{}\PYGZdq{} ,It has \PYGZdq{}\PYGZlt{}\PYGZlt{}Tire\PYGZlt{}\PYGZlt{}\PYGZdq{} tire(s) and \PYGZdq{}\PYGZlt{}\PYGZlt{}Door\PYGZlt{}\PYGZlt{}\PYGZdq{} Door(s).\PYGZdq{}\PYGZlt{}\PYGZlt{}std::endl;}
+    \PYG{c+c1}{//This is error,the complier will tell it is private,but we can use like this}
+    \PYG{k+kt}{int} \PYG{n}{tire}\PYG{o}{=}\PYG{n}{Car}\PYG{o}{::}\PYG{n}{getTire}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{o}{=}\PYG{n}{Car}\PYG{o}{::}\PYG{n}{getColor}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The sportCar\PYGZsq{}s color is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{color}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,It has \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{tire}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} tire(s) and \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Door}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} door(s).\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+    \PYG{c+c1}{//or like this:}
+    \PYG{n}{Car}\PYG{o}{::}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}It also has \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Door}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} door(s).\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

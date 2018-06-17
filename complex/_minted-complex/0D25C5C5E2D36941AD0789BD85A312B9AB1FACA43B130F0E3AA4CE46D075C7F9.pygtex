@@ -1,0 +1,295 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:complex.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}complex.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cmath\PYGZgt{}}
+
+\PYG{k+kt}{bool} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{==}\PYG{p}{(}\PYG{k}{const} \PYG{n}{complex} \PYG{o}{\PYGZam{}} \PYG{n}{other}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	一般我们比较两个对象是否相等}
+\PYG{c+cm}{	会比较对象里的所有变量是否相等}
+\PYG{c+cm}{	若相等则认为两个对象相等}
+\PYG{c+cm}{	布尔值是c++关键字}
+\PYG{c+cm}{*/}
+	\PYG{k}{return} \PYG{p}{(} \PYG{p}{(}\PYG{n}{real}\PYG{o}{==}\PYG{n}{other}\PYG{p}{.}\PYG{n}{real}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{imag}\PYG{o}{==}\PYG{n}{other}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{)} \PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{a}\PYG{p}{,} \PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	这是非类里的函数，不需要类解析符}
+\PYG{c+cm}{	但是访问类里私有变量因此要在类里加友元并声明}
+\PYG{c+cm}{	重载了加号+运算符}
+\PYG{c+cm}{	complex a=(float)c+(complex)b}
+\PYG{c+cm}{	相当于 a = c.operator+(b);}
+\PYG{c+cm}{	对一个复数实部进行加运算，虚部不变}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{a} \PYG{o}{+} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{a}\PYG{p}{,} \PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	这是非类里的函数，不需要类解析符}
+\PYG{c+cm}{	但是访问类里私有变量因此要在类里加友元并声明}
+\PYG{c+cm}{	重载了减号\PYGZhy{}运算符}
+\PYG{c+cm}{	complex a=(float)c\PYGZhy{}(complex)b}
+\PYG{c+cm}{	相当于 a = c.operator\PYGZhy{}(b);}
+\PYG{c+cm}{	对一个复数实部进行减运算，虚部不变}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{a} \PYG{o}{\PYGZhy{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{a}\PYG{p}{,} \PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	这是非类里的函数，不需要类解析符}
+\PYG{c+cm}{	但是访问类里私有变量因此要在类里加友元并声明}
+\PYG{c+cm}{	重载了乘号*运算符}
+\PYG{c+cm}{	complex a=(float)c*(complex)b}
+\PYG{c+cm}{	相当于 a = c.operator*(b);}
+\PYG{c+cm}{	对一个复数实部进行乘运算，虚部和实部分别相乘}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{a} \PYG{o}{*} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{a} \PYG{o}{*} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{a}\PYG{p}{,} \PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	这是非类里的函数，不需要类解析符}
+\PYG{c+cm}{	但是访问类里私有变量因此要在类里加友元并声明}
+\PYG{c+cm}{	重载了除号/运算符}
+\PYG{c+cm}{	complex a=(float)c/(complex)b}
+\PYG{c+cm}{	相当于 a = c.operator/(b);}
+\PYG{c+cm}{	对一个复数实部进行除运算，虚部和实部分别相除}
+\PYG{c+cm}{*/}
+	\PYG{k}{if}\PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}Input Error!\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{k}{else}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{a} \PYG{o}{/} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{a} \PYG{o}{/} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+		\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream} \PYG{o}{\PYGZam{}}\PYG{n}{output}\PYG{p}{,} \PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了重定向\PYGZlt{}\PYGZlt{}运算符}
+\PYG{c+cm}{	重定向到标准输出流，由于要改变值，所以做引用传递}
+\PYG{c+cm}{*/}
+	\PYG{n}{output}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} + \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}i\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{n}{output}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex \PYGZsq{}s real part is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,its imag part is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{output}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{k}{operator}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream} \PYG{o}{\PYGZam{}}\PYG{n}{input}\PYG{p}{,} \PYG{n}{complex} \PYG{o}{\PYGZam{}}\PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了重定向\PYGZgt{}\PYGZgt{}运算符}
+\PYG{c+cm}{	重定向到标准输入流，由于要改变值，所以做引用传递}
+\PYG{c+cm}{*/}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Please enter the real part:\PYGZdq{}}\PYG{p}{;}
+	\PYG{n}{input} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}please enter the imaginery part:\PYGZdq{}}\PYG{p}{;}
+	\PYG{n}{input} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{input}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了加号+运算符}
+\PYG{c+cm}{	complex a=(complex)b+(complex)c}
+\PYG{c+cm}{	相当于 a = b.operator+(c);}
+\PYG{c+cm}{	对两个复数进行加运算}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{+} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag} \PYG{o}{+} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了加号+运算符}
+\PYG{c+cm}{	complex a=(complex)b+(float)c}
+\PYG{c+cm}{	相当于 a = b.operator+(c);}
+\PYG{c+cm}{	对一个复数实部进行加运算，虚部不变}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{+} \PYG{n}{c}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了减号\PYGZhy{}运算符}
+\PYG{c+cm}{	complex a=(complex)b\PYGZhy{}(complex)c}
+\PYG{c+cm}{	相当于 a = b.operator\PYGZhy{}(c);}
+\PYG{c+cm}{	对两个复数进行减运算}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{\PYGZhy{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag} \PYG{o}{\PYGZhy{}} \PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了减号\PYGZhy{}运算符}
+\PYG{c+cm}{	complex a=(complex)b\PYGZhy{}(float)c}
+\PYG{c+cm}{	相当于 a = b.operator\PYGZhy{}(c);}
+\PYG{c+cm}{	对一个复数实部进行减运算，虚部不变}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{\PYGZhy{}} \PYG{n}{c}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了乘号*运算符}
+\PYG{c+cm}{	complex a=(complex)b*(complex)c}
+\PYG{c+cm}{	相当于 a = b.operator*(c);}
+\PYG{c+cm}{	对两个复数进行乘运算}
+\PYG{c+cm}{	（a＋bi）*（c＋di）＝（ac－bd）＋（bc＋ad）i,}
+\PYG{c+cm}{	a=real;}
+\PYG{c+cm}{	b=imag;}
+\PYG{c+cm}{	c=c.real;}
+\PYG{c+cm}{	d=c.imag;}
+\PYG{c+cm}{	temp.real=(real*c.real\PYGZhy{}imag*c.imag)}
+\PYG{c+cm}{	temp.imag=(imag*c.real\PYGZhy{}real*c.imag)}
+\PYG{c+cm}{*/}
+	\PYG{k}{if}\PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}Input Error!\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{k}{else}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{p}{(}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZhy{}}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{);}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{p}{(}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZhy{}}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{);}
+		\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{*}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了乘号*运算符}
+\PYG{c+cm}{	complex a=(complex)b*(float)c}
+\PYG{c+cm}{	相当于 a = b.operator*(c);}
+\PYG{c+cm}{	对一个复数实部进行乘运算，虚部和实部分别相乘}
+\PYG{c+cm}{*/}
+	\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{*} \PYG{n}{c}\PYG{p}{;}
+	\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag} \PYG{o}{*} \PYG{n}{c}\PYG{p}{;}
+	\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{n}{complex} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了除号/运算符}
+\PYG{c+cm}{	complex a=(complex)b/(complex)c}
+\PYG{c+cm}{	相当于 a = b.operator/(c);}
+\PYG{c+cm}{	对两个复数进行/运算}
+\PYG{c+cm}{	（a＋bi）/（c＋di）＝（（ac+bd）/（c\PYGZca{}2+d\PYGZca{}2））＋（（bc－ad）/（c\PYGZca{}2+d\PYGZca{}2））i,}
+\PYG{c+cm}{	a=real;}
+\PYG{c+cm}{	b=imag;}
+\PYG{c+cm}{	c=c.real;}
+\PYG{c+cm}{	d=c.imag;}
+\PYG{c+cm}{	temp.real=(real*c.real\PYGZhy{}imag*c.imag)/(c.real*c.real+c.imag*c.imag);}
+\PYG{c+cm}{	temp.imag=(imag*c.real\PYGZhy{}real*c.imag)/(c.real*c.real+c.imag*c.imag);}
+\PYG{c+cm}{*/}
+	\PYG{k}{if}\PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}Input Error!\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{k}{else}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{p}{(}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZhy{}}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{+}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{);}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{p}{(}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{\PYGZhy{}}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{real}\PYG{o}{+}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{c}\PYG{p}{.}\PYG{n}{imag}\PYG{p}{);}
+		\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{complex} \PYG{n}{complex}\PYG{o}{::}\PYG{k}{operator}\PYG{o}{/}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{c}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/*}
+\PYG{c+cm}{	重载了减号/运算符}
+\PYG{c+cm}{	complex a=(complex)b/(float)c}
+\PYG{c+cm}{	相当于 a = b.operator/(c);}
+\PYG{c+cm}{	对一个复数实部进行除运算，虚部和实部分别相除}
+\PYG{c+cm}{*/}
+	\PYG{k}{if}\PYG{p}{(}\PYG{n}{c}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}Input Error!\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{k}{else}
+	\PYG{p}{\PYGZob{}}
+		\PYG{n}{complex} \PYG{n}{temp}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{real} \PYG{o}{=} \PYG{n}{real} \PYG{o}{/} \PYG{n}{c}\PYG{p}{;}
+		\PYG{n}{temp}\PYG{p}{.}\PYG{n}{imag} \PYG{o}{=} \PYG{n}{imag} \PYG{o}{/} \PYG{n}{c}\PYG{p}{;}
+		\PYG{k}{return} \PYG{n}{temp}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{float} \PYG{n}{complex}\PYG{o}{::}\PYG{n}{abs}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{real}\PYG{o}{*}\PYG{n}{real}\PYG{o}{+}\PYG{n}{imag}\PYG{o}{*}\PYG{n}{imag}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex}\PYG{o}{::}\PYG{n}{complex}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+	\PYG{n}{real}\PYG{o}{=}\PYG{l+m+mf}{0.0}\PYG{p}{;}
+	\PYG{n}{imag}\PYG{o}{=}\PYG{l+m+mf}{0.0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{complex}\PYG{o}{::}\PYG{n}{complex}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{r}\PYG{p}{,}\PYG{k+kt}{float} \PYG{n}{i}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+	\PYG{n}{real}\PYG{o}{=}\PYG{n}{r}\PYG{p}{;}
+	\PYG{n}{imag}\PYG{o}{=}\PYG{n}{i}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{complex}\PYG{o}{::}\PYG{n}{PrintComplex}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex is (\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}) + (\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}) i\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+	\PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The complex \PYGZsq{}s real part is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{real}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,its imag part is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{imag}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{complex}\PYG{o}{::}\PYG{n}{setComplex}\PYG{p}{(}\PYG{k+kt}{float} \PYG{n}{r}\PYG{p}{,}\PYG{k+kt}{float} \PYG{n}{i}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+	\PYG{n}{real}\PYG{o}{=}\PYG{n}{r}\PYG{p}{;}
+	\PYG{n}{imag}\PYG{o}{=}\PYG{n}{i}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{float} \PYG{n}{complex}\PYG{o}{::}\PYG{n}{getImag}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{n}{imag}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{float} \PYG{n}{complex}\PYG{o}{::}\PYG{n}{getReal}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{n}{real}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Sources:Truck.cpp}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Truck.h\PYGZdq{}}
+
+\PYG{n}{Truck}\PYG{o}{::}\PYG{n}{Truck}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{p}{,}\PYG{k+kt}{int} \PYG{n}{tire}\PYG{p}{,}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{engine}\PYG{p}{)}
+    \PYG{o}{:} \PYG{n}{Car}\PYG{p}{(}\PYG{n}{color}\PYG{p}{,}\PYG{n}{tire}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{setEngine}\PYG{p}{(}\PYG{n}{engine}\PYG{p}{);}
+    \PYG{c+c1}{// Engine=engine;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Truck}\PYG{o}{::\PYGZti{}}\PYG{n}{Truck}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n}{Truck}\PYG{o}{::}\PYG{n}{setEngine}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{engine}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+    \PYG{n}{Engine}\PYG{o}{=}\PYG{n}{engine}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{Truck}\PYG{o}{::}\PYG{n}{getEngine}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{Engine}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n}{Truck}\PYG{o}{::}\PYG{n}{print}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{tire}\PYG{o}{=}\PYG{n}{Car}\PYG{o}{::}\PYG{n}{getTire}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{color}\PYG{o}{=}\PYG{n}{Car}\PYG{o}{::}\PYG{n}{getColor}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}The truck\PYGZsq{}s color is \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{color}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} ,It has \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{tire}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} tire(s) and \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Engine}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} engine.\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+    \PYG{c+c1}{//or like this:}
+    \PYG{n}{Car}\PYG{o}{::}\PYG{n}{print}\PYG{p}{();}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{cout}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{}It also has \PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{Engine}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+s}{\PYGZdq{} engine.\PYGZdq{}}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
