@@ -1,0 +1,204 @@
+\documentclass[UTF8,18pt]{ctexart}
+\usepackage{geometry}
+\usepackage{url}
+% to fix url issue
+\def\UrlBreaks{%
+	\do\/%
+	\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+	\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+	\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+	\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+	\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+	\do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+\usepackage{multirow}
+\usepackage{diagbox}
+\geometry{a4paper,centering,scale=0.8}
+\usepackage[format=hang,font=small,textfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{ amssymb }
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{minted}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\setlength{\parindent}{2em}
+\newenvironment{myquote}
+{\begin{quote}\kaishu\zihao{-5}}
+	{\end{quote}}
+\title{\heiti 算法实验：问题建模，数据结构和算法的结合}
+\author{\kaishu 郭XX}
+\affil{\small{xxxxxxxxx，物联网 xxxx，XX 大学}}
+\date{\today}
+\bibliographystyle{plain}
+
+\begin{document}
+\maketitle
+% 摘要部分
+\begin{abstract}
+这是使用\LaTeX 写的算法报告：将实际问题抽象建模，用数据结构表示，并且用简要算法实现。
+\end{abstract}
+{\small 关键词：\underline{算法}，\underline{数据结构}，\underline{问题抽象建模}
+
+% 目录部分
+\tableofcontents
+\section{问题引入}
+我们第三次算法实验，老师给我们演示了一个职位推荐系统。该系统通过程序的内置数据库，询问用户一些问题，并且给出参考答案，获取用户的答案后，寻找是否有合适的输出结果满足的这些答案的组合。
+
+老师本来想让我们做个与之相似的系统，但是我觉得这个系统有很多弊端，第一数据库（数据结构）和程序（算法）不分离，第二实用性不高，第三，仍然学习不到什么。
+因此我决定自己研究自己建模，分析这些数据，以及算法之间的关系。
+\section{建模处理}
+\subsection{问题模型}
+问题模型包括问题/答案数组，问题可能有$n$个（$n \geqslant 0$)，每个问题可能有n（$n \geqslant 0$)个答案，这些答案的不同排列组合会有不同的输出。
+通过遍历循环可以输出所有的问题。
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{wtmx.png}
+	\caption{问题模型图}
+	\label{fig:问题模型}
+\end{figure}
+\subsection{输出模型}
+输出模型是包括输出内容/有序的答案的排列的数组，该数组与问题模型配套，通过遍历循环查找是否用户输入与该组合匹配来决定是否输出输出内容；同时也通过循环遍历每个输出来完成所有输出的处理。
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{scmx.png}
+	\caption{输出模型图}
+	\label{fig:输出模型}
+\end{figure}
+\subsection{其他模型}
+其他模型包括数据库(输入输出存储，操作处理的模型)以及用户输入的信息模型。
+\subsubsection{数据库模型}
+数据库我认为可以包括两个，一个是问题数据库，一个是输出数据库，输出数据库应该与问题数据库有关。
+
+\textbf{问题数据库：}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{ds1.png}
+	\caption{问题数据库模型}
+	\label{fig:问题数据库模型}
+\end{figure}
+其中最小单元就是每个问题，因此操作存储应该是对每个问题做处理。
+
+\textbf{输出数据库：}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{ds2.png}
+	\caption{输出数据库模型}
+	\label{fig:输出数据库模型}
+\end{figure}
+我们使用*代表全部匹配
+因为输出数据库跟问题数据相关，因此要特别注意，其中最小单元应该是每个输出，同样操作应该每个输出做处理。
+\subsubsection{用户输入模型}
+用户输入模型，应该和问题数据库相关，因为有多少问题，就应该要求用户输入多少答案。但是输入完成后会和输出数据库做匹配，满足才输出。
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{ds3.png}
+	\caption{用户输入模型}
+	\label{fig:用户输入模型}
+
+\end{figure}
+最小的单元应该是每道问题。
+
+\section{数据结构和算法说明}
+在建立模型之后就应该说数据结构和使用算法完成程序了。
+
+其中涉及的操作有 \underline{查找} ，\underline{增加} ，\underline{删除} 和 \underline{修改}。
+
+交互还包括 \underline{输入} 和 \underline{输出部分}。
+
+对于用户来说只有 \underline{查找} 的权利，\textbf{对于管理员有其他权限}。
+
+这是判断用户是具有管理权限的伪代码：
+\subsection{判断用户是否有管理权限}
+\begin{algorithm}[H]
+  \caption{判断访问用户是否有管理权限}
+  \label{判断权限}
+  \begin{algorithmic}
+  \REQUIRE 读取到用户状态
+  \ENSURE 输出权限表
+  \STATE $state \gets user\_state$
+  \IF{$ state \ is \ administrator$}
+  \STATE $authority \gets all$
+  \ELSE
+  \STATE $authority  \gets limited$
+  \ENDIF
+  \end{algorithmic}
+\end{algorithm}
+\subsection{进行查找输出}
+这是进行查找输出的伪代码：
+\begin{algorithm}[H]
+  \caption{遍历输出所有问题并且查找是否存在输出}
+  \label{查找输出}
+  \begin{algorithmic}
+  \REQUIRE 问题和输出都不为空，用户输入正确
+  \ENSURE 输出正确的结果
+  \WHILE{$not \ display \ all \ qustion$}
+  \PRINT{$qustion \ and \ answer$}
+  \STATE $input\_buffer[] \gets input$
+  \ENDWHILE
+  \FOR{$output\_list \ 1:n$}
+  \IF{$Search(input\_buffer,output\_refer)==TRUE$}
+  \PRINT{$output$}
+  \ENDIF
+  \ENDFOR
+  \end{algorithmic}
+\end{algorithm}
+\subsection{管理员对数据库进行操作}
+这是管理员对数据库操作的伪代码：
+请在下页查看，抱歉。
+\begin{algorithm}[H]
+  \caption{管理员操作数据库}
+  \label{管理员操作数据库}
+  \begin{algorithmic}
+  \REQUIRE 拥有管理员权限，数据库可以读写
+  \STATE $select \gets input$
+  \IF{$select \ is \ Display$}
+  \PRINT{$all \ questions \ and \ outputs$}
+  \ELSIF{$select \ is \ Search$}
+   \STATE $buffer \gets input$
+  	  \IF{$\textbf{serach} \ and \ found \ input \ in \ datebase$}
+  	  \PRINT{$serach\_reslut$}
+  	  \ELSE
+  	  \PRINT{$error$}
+  	  \ENDIF
+  \ELSIF{$select \ is \ Add$}
+   \STATE $buffer \gets input$
+  	\IF{$ \textbf{not} \ serach \ and \ found \ input \ in \ datebase$}
+  	\STATE $database \gets buffer$
+  	\ELSE
+  	\PRINT{$error$}
+  	\ENDIF
+  \ELSIF{$select \ is \ Delete$}
+  \STATE $buffer \gets input$
+	\IF{$serach \ and \ found \ input \ in \ datebase$}
+	\STATE $\textbf{delete} \ search\_reslut$
+	\ELSE
+	\PRINT{$error$}
+	\ENDIF
+  \ELSIF{$select \ is \ Edit$}
+	  \STATE $buffer \gets input$
+	  \IF{$\textbf{serach} \ and \ found \ input \ in \ datebase$}
+	  \STATE $search\_reslut \gets buffer$
+	  \ELSE
+	  \PRINT{$error$}
+	  \ENDIF
+	  \ELSE
+	  \PRINT{$input \ error$}
+  \ENDIF
+  \end{algorithmic}
+\end{algorithm}
+
+
+\section{程序实现}
+由于时间不充裕，有空待填。
+\section{总结}
+写这篇算法报告，当时没有思路，然后一直拖延。我想着不能再拖延了，然后匆忙写了这份实验报告，但是时间还是不够，还要处理很多的考试，我也着急把这个报告给老师，所以我只能大体把我的思路框架写好，更完善和代码实现部分还没有做，希望老师您不要介意。
+
+另外 \LaTeX 排版我仍然处在入门阶段，还有许多没有学，比如它的表格系统，更多的宏包知识等，我还是希望老师不要介意。
+
+好多东西我要学，还希望认真学，补习之前落掉的内容，还是有些仓促，希望我能更加系统性和科学性，快速的学到我想要的东西，专心的钻研。
+
+最后感谢老师一直以来的帮助和等待，谢谢老师。
+\end{document}
